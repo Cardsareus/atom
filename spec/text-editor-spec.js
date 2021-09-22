@@ -5538,9 +5538,17 @@ describe('TextEditor', () => {
             normalizeLineEndings: false
           });
 
+          const eols = {
+            win32: '\r\n',
+            darwin: '\n',
+            linux: '\n'
+          };
+
+          const eol = eols[process.platform];
+
           expect(editor.lineTextForBufferRow(5)).toBe('  a(x);');
           expect(editor.lineTextForBufferRow(6)).toBe('  b(x);');
-          expect(editor.buffer.lineEndingForRow(6)).toBe('\r\n');
+          expect(editor.buffer.lineEndingForRow(6)).toBe(eol);
           expect(editor.lineTextForBufferRow(7)).toBe('c(x);');
           expect(editor.lineTextForBufferRow(8)).toBe(
             '      current = items.shift();'
